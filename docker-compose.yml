@@ -18,20 +18,25 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    restart: always
-    networks:
-      - expernetResa
+    container_name: node_api
     ports:
-      - "${PORT}:3000"
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       MYSQL_HOST: bdd
       MYSQL_PORT: 3306
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
     depends_on:
       - bdd
+    networks:
+      - expernetResa
+
 
 networks:
   expernetResa:

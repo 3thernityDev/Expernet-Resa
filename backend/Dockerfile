@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
@@ -6,10 +6,11 @@ COPY package*.json ./
 
 RUN npm install
 
+# Copier le reste du code
 COPY . .
 
-ENV NODE_ENV=production
+ENV CHOKIDAR_USEPOLLING=true
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

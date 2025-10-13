@@ -1,8 +1,41 @@
 services:
   bdd:
     image: mariadb:latest
+    container_name: mariadb
     restart: always
+    networks:
+      - expernetResa
     environment:
-      - MARIADB_ROOT_PASSWORD=1234
+      MARIADB_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_DATABASE: ${MYSQL_DATABASE}
+      MARIADB_USER: ${MYSQL_USER}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - 3306
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - expernetResa
+    ports:
+      - "${PORT}:3000"
+    environment:
+      MYSQL_HOST: bdd
+      MYSQL_PORT: 3306
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      NODE_ENV: ${NODE_ENV}
+    depends_on:
+      - bdd
+
+networks:
+  expernetResa:
+    driver: bridge
+
+volumes:
+  db_data:

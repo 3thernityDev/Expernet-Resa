@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Réservation de Salles</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>📅 Réservations de Salles</h1>
+
+            <form id="reservation-form">
+                <input
+                    type="text"
+                    id="room"
+                    placeholder="Nom de la salle"
+                    required
+                />
+                <input
+                    type="text"
+                    id="user"
+                    placeholder="ID utilisateur"
+                    required
+                />
+                <input type="datetime-local" id="startTime" required />
+                <input type="datetime-local" id="endTime" required />
+                <textarea
+                    id="comment"
+                    placeholder="Commentaire (facultatif)"
+                ></textarea>
+                <button type="submit">Créer la réservation</button>
+            </form>
+
+            <h2>📋 Liste des réservations</h2>
+            <div id="reservations-list"></div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

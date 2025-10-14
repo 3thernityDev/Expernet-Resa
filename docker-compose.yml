@@ -17,13 +17,17 @@ services:
       context: ./backend
     container_name: api
     restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules 
     environment:
       MYSQL_HOST: bdd
       MYSQL_PORT: 3306
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      NODE_ENV: production
     depends_on:
       - bdd
     networks:
@@ -35,11 +39,14 @@ services:
     container_name: frontend
     restart: always
     ports:
-      - "8080:80"  # Frontend accessible sur http://localhost:8080
+      - "8080:80"
     depends_on:
       - api
     networks:
       - expernetResa
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+
 
 networks:
   expernetResa:

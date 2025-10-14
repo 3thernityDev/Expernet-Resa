@@ -2,15 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
+RUN apk add --no-cache curl 
 COPY package*.json ./
 
-RUN apk add --no-cache curl
+# Installer les dépendances
 RUN npm install
 
-
-# Copier le reste du code
 COPY . .
 
+# Pour éviter les soucis avec le hot reload dans Docker
 ENV CHOKIDAR_USEPOLLING=true
 
 EXPOSE 3000

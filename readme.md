@@ -1,4 +1,4 @@
-# 🚀 Expernet-Resa [![🧪 Tests Backend](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/test.yml/badge.svg)](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/test.yml)
+# 🚀 Expernet-Resa [![🧪 Tests Backend](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/test.yml/badge.svg)](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/test.yml) [![🐳 Build Docker Images](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/docker-build.yml/badge.svg)](https://github.com/3thernityDev/Expernet-Resa/actions/workflows/docker-build.yml)
 
 Un petit projet de formation pour apprendre Docker en environnement multi-conteneurs : un frontend statique servi par Nginx, une API Node.js/Express et une base MariaDB gérée via Sequelize.
 

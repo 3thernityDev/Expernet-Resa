@@ -1,10 +1,8 @@
 name: 🐳 Build Docker Images
 on:
-    push:
-        branches:
-            - main
-            - master
-    pull_request:
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
     build:

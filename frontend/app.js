@@ -18,13 +18,13 @@ async function loadReservations() {
             const div = document.createElement("div");
             div.classList.add("reservation");
             div.innerHTML = `
-        <strong>${r.room}</strong> — Utilisateur #${r.user} <br>
-        🕒 ${new Date(r.startTime).toLocaleString()} → ${new Date(
+                <strong>${r.room}</strong> — Utilisateur : ${r.user} <br>
+                🕒 ${new Date(r.startTime).toLocaleString()} → ${new Date(
                 r.endTime
             ).toLocaleString()} <br>
-        🗒️ ${r.comment || "Aucun commentaire"} <br>
-        🔖 Statut : <em>${r.status}</em>
-      `;
+                🗒️ ${r.comment || "Aucun commentaire"} <br>
+                🔖 Statut : <em>${r.status}</em>
+            `;
             list.appendChild(div);
         });
     } catch (err) {
@@ -38,12 +38,17 @@ async function loadReservations() {
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
     const data = {
-        room: document.getElementById("room").value,
-        user: parseInt(document.getElementById("user").value),
+        room: document.getElementById("room").value.trim(),
+        user: document.getElementById("user").value.trim(),
         startTime: document.getElementById("startTime").value,
         endTime: document.getElementById("endTime").value,
-        comment: document.getElementById("comment").value,
+        comment: document.getElementById("comment").value.trim(),
     };
 
     try {
@@ -53,7 +58,11 @@ form.addEventListener("submit", async (e) => {
         loadReservations();
     } catch (err) {
         console.error(err);
-        alert("❌ Erreur lors de la création de la réservation.");
+        alert(
+            err.response?.data?.message ||
+                "❌ Erreur lors de la création de la réservation."
+        );
+        console.log(data);
     }
 });
 

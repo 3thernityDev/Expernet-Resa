@@ -10,7 +10,7 @@
         <div class="container">
             <h1>📅 Réservations de Salles</h1>
 
-            <form id="reservation-form">
+            <form id="reservation-form" novalidate>
                 <input
                     type="text"
                     id="room"
@@ -20,7 +20,7 @@
                 <input
                     type="text"
                     id="user"
-                    placeholder="ID utilisateur"
+                    placeholder="Nom ou ID utilisateur"
                     required
                 />
                 <input type="datetime-local" id="startTime" required />

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db.js"
+import sequelize from "../config/db.js";
 
 const Reservation = sequelize.define(
     "Reservation",
@@ -10,11 +10,11 @@ const Reservation = sequelize.define(
             autoIncrement: true,
         },
         room: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         user: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         startTime: {

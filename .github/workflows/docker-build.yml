@@ -1,0 +1,21 @@
+name: 🐳 Build Docker Images
+on:
+    push:
+        branches:
+            - main
+            - master
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Build backend image
+              run: docker build -t expernet/backend:latest ./backend
+
+            - name: Build frontend image
+              run: docker build -t expernet/frontend:latest ./frontend

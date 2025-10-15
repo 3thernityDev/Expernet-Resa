@@ -2,6 +2,7 @@ services:
   bdd:
     image: mariadb:latest
     container_name: mariadb
+    restart: always
     environment:
       MARIADB_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MARIADB_DATABASE: ${MYSQL_DATABASE}

@@ -1,41 +1,42 @@
 name: 🐳 Build & Push Docker Images
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+    push:
+        tags:
+            - "v*.*.*"
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+    build-and-push:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Log in to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract version from tag
-        id: vars
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+            - name: Extract version from tag
+              id: vars
+              run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-      - name: Build backend image
-        run: |
-          docker build -t expernet/backend:latest -t expernet/backend:${VERSION} ./backend
+            - name: Build backend image
+              run: |
+                  docker build -t 3thernity/expernet-formation:backend-latest -t 3thernity/expernet-formation:backend-${VERSION} ./backend
 
-      - name: Build frontend image
-        run: |
-          docker build -t expernet/frontend:latest -t expernet/frontend:${VERSION} ./frontend
+            - name: Build frontend image
+              run: |
+                  docker build -t 3thernity/expernet-formation:frontend-latest -t 3thernity/expernet-formation:frontend-${VERSION} ./frontend
 
-      - name: Push backend image
-        run: |
-          docker push expernet/backend:latest
-          docker push expernet/backend:${VERSION}
+            - name: Push all images
+              run: |
+                  docker push 3thernity/expernet-formation:backend-latest
+                  docker push 3thernity/expernet-formation:backend-${VERSION}
+                  docker push 3thernity/expernet-formation:frontend-latest
+                  docker push 3thernity/expernet-formation:frontend-${VERSION}
 
-      - name: Push frontend image
-        run: |
-          docker push expernet/frontend:latest
-          docker push expernet/frontend:${VERSION}
+            - name: Clean up local images
+              run: |
+                  docker image prune -af

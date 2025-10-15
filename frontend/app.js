@@ -1,7 +1,7 @@
 const API_URL =
     (window.location.hostname.includes("railway.app") &&
-        "http://backend.railway.internal:5000") ||
-    "http://localhost:5000";
+        "http://backend.railway.internal:3000") ||
+    "http://localhost:3000";
 
 const form = document.getElementById("reservation-form");
 const list = document.getElementById("reservations-list");

@@ -1,5 +1,12 @@
-const API_URL = window.API_URL || "http://localhost:3000";
-axios.get(`${API_URL}/api/reservations`);
+// Détecte automatiquement si on est sur Railway ou en local
+const API_URL = window.location.hostname.includes("railway.app")
+    ? "https://backend-production-232a.up.railway.app"
+    : "http://localhost:3000";
+
+axios
+    .get(`${API_URL}/api/reservations`)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error("Erreur de chargement :", err));
 
 const form = document.getElementById("reservation-form");
 const list = document.getElementById("reservations-list");

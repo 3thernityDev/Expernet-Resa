@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import sequelize from "./config/db.js";
+import sequelize, { initDB } from "./config/db.js";
 import reservationRoutes from "./routes/roomRoutes.js";
 
 dotenv.config();
@@ -31,6 +31,8 @@ if (process.env.NODE_ENV !== "test") {
             process.exit(1);
         });
 }
+
+initDB();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

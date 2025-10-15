@@ -1,7 +1,5 @@
-const API_URL =
-    (window.location.hostname.includes("railway.app") &&
-        "https://backend.railway.internal:3000/api/reservations") ||
-    "http://localhost:3000/api/reservations";
+const API_URL = window.API_URL || "http://localhost:5000";
+axios.get(`${API_URL}/api/reservations`);
 
 const form = document.getElementById("reservation-form");
 const list = document.getElementById("reservations-list");

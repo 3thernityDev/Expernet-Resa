@@ -30,9 +30,8 @@ if (process.env.NODE_ENV !== "test") {
             console.error("❌ Erreur BDD:", err);
             process.exit(1);
         });
+    initDB();
 }
-
-initDB();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

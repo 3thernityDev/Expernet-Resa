@@ -1,4 +1,4 @@
-const API_URL = window.API_URL || "http://localhost:5000";
+const API_URL = window.API_URL || "http://localhost:3000";
 axios.get(`${API_URL}/api/reservations`);
 
 const form = document.getElementById("reservation-form");

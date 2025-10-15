@@ -7,7 +7,16 @@ import reservationRoutes from "./routes/roomRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "https://frontend-production-8714.up.railway.app",
+            "http://localhost:8080",
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 app.use(express.json());
 
 app.use("/api/reservations", reservationRoutes);

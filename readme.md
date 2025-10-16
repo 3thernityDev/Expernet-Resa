@@ -22,6 +22,7 @@ Le tout orchestré avec Docker Compose pour un environnement de développement r
 -   Base : MariaDB
 -   Frontend : HTML / CSS / JavaScript (Axios)
 -   Web : Nginx (frontend statique)
+-   Monitoring : Prometheus + Grafana
 
 ---
 
@@ -44,6 +45,8 @@ Racine du projet :
 │   ├── index.html
 │   ├── app.js
 │   └── styles.css
+├── prometheus/
+|   ├── prometheus.yml
 ├── docker-compose.yml
 └── readme.md
 ```
@@ -92,6 +95,49 @@ Notes :
 
 ---
 
+## 📊 Supervision (TP8 – Monitoring)
+
+Le projet inclut désormais une stack de monitoring avec Prometheus et Grafana.
+
+### 🔍 Prometheus
+
+Collecte les métriques du backend via la route `/metrics`
+
+Interroge le service `api:3000` toutes les 15 secondes
+
+Interface : `http://localhost:9090`
+
+Exemple de métriques :
+
+Temps de réponse des requêtes HTTP
+
+Nombre de requêtes traitées
+
+Uptime du backend
+
+### 📈 Grafana
+
+Visualise les métriques collectées par Prometheus
+
+Interface : `http://localhost:3001`
+
+(identifiants par défaut : admin / admin)
+
+Exemple de dashboard :
+
+Temps de réponse (P95) via :
+
+```bash
+histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[1m])) by (le))
+```
+
+
+Nombre de requêtes/s via :
+
+```bash
+sum(rate(http_request_duration_ms_count[1m]))
+```
+---
 ## 🧭 Endpoints principaux
 
 -   GET /api/reservations — liste toutes les réservations
@@ -123,6 +169,8 @@ docker-compose up -d
 # Voir les logs d'un service
 docker-compose logs -f api
 docker-compose logs -f frontend
+docker-compose logs -f grafana
+docker-compose logs -f prometheus
 
 # Arrêter
 docker-compose down

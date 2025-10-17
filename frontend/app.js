@@ -1,8 +1,9 @@
 // 🔍 Détecte automatiquement si on est sur Railway ou en local
 const API_URL = window.location.hostname.includes("railway.app")
     ? "https://backend-production-232a.up.railway.app"
-    : "http://localhost:3000";
-
+    : window.locaation.hostname.includes("gamingandchill.fr");
+    ? "/api"
+    : "http://locahost:3000"
 // Charger les réservations existantes
 async function loadReservations() {
     try {
